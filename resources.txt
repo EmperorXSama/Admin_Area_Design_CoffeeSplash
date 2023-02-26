@@ -1,0 +1,7 @@
+#7C4433
+x-bind:class="{'w-96' :$store.sidebar.full, 'w-96 sm:w-20':!$store.sidebar.full,'top-0 left-0':$store.sidebar.navOpen, 'top-0 -left-64 sm:left-0':!$store.sidebar.full}"
+
+
+x-bind::class="$store.sidebar.full ? 'text-3xl' : 'text-xl '"
+
+
