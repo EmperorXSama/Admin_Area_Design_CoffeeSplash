@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+    <link href="../public/css/styles.css" rel="stylesheet">
+    <link href="../public/css/Costume.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<main x-data  class="w-full max-h-screen flex">
+
+    <!--Navigation Bar-->
+    <div class="w-80 max-h-screen bg-white transition-all ease-out duration-150"
+         x-bind:class="{'w-80' :$store.sidebar.full, 'w-80 sm:w-28':!$store.sidebar.full,'top-0 left-0':$store.sidebar.navOpen, 'top-0 -left-64 sm:left-0':!$store.sidebar.full}">
+
+        <div id="Title_Container" class="flex justify-center items-center w-full ">
+            <h2   class="font-bold font-sans"
+                  x-bind:class="$store.sidebar.full ? 'text-3xl' : 'text-xl text-center'"
+            >COFFEE
+                <span class="text-[#804e49]">ADMIN</span>
+            </h2>
+        </div>
+        <div id="SideBarContainer" class="flex flex-col w-full  p-4 pt-16 overflow-auto">
+            <!--sidebar content-->
+            <div class="w-full h-4/5">
+                <div class="w-full h-full">
+                    <ul class="space-y-4">
+                        <li class="text-gray-400 rounded-full "
+                            x-bind:class="$store.sidebar.full ? '':'flex justify-center items-center h-16 '">
+                            <a href="#" class="flex items-center"
+                               x-bind:class="$store.sidebar.full ? 'py-5 pl-6 justify-start':'p-1'">
+
+                                <img src="../public/img/home-hashtag-svgrepo-com.svg"
+                                     x-bind:class="$store.sidebar.full ? 'h-8 w-8 mr-3' : 'h-10 w-10'">
+
+                                <span class="text-2xl tracking-wide"
+                                      x-bind:class="$store.sidebar.full ? '':'hidden'">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="text-gray-400 rounded-full "
+                            x-bind:class="$store.sidebar.full ? '':'flex justify-center items-center h-16'">
+                            <a href="#" class="flex items-center"
+                               x-bind:class="$store.sidebar.full ? 'py-5 pl-6 justify-start':'p-2'">
+
+                                <img src="../public/img/menu-board-svgrepo-com.svg"
+                                     x-bind:class="$store.sidebar.full ? 'h-8 w-8 mr-3' : 'h-10 w-10'">
+
+                                <span class="text-2xl tracking-wide"
+                                      x-bind:class="$store.sidebar.full ? '':'hidden'">Orders</span>
+                            </a>
+                        </li>
+                        <li class="text-gray-400 rounded-full "
+                            x-bind:class="$store.sidebar.full ? '':'flex justify-center items-center h-16'">
+                            <a href="#" class="flex items-center"
+                               x-bind:class="$store.sidebar.full ? 'py-5 pl-6 justify-start':'p-2'">
+
+                                <img src="../public/img/employees-icon.svg"
+                                     x-bind:class="$store.sidebar.full ? 'h-8 w-8 mr-3' : 'h-10 w-10'">
+
+                                <span class="text-2xl tracking-wide"
+                                      x-bind:class="$store.sidebar.full ? '':'hidden'">Employees</span>
+                            </a>
+                        </li>
+                        <li class="text-gray-400 rounded-full "
+                            x-bind:class="$store.sidebar.full ? '':'flex justify-center items-center h-16'">
+                            <a href="#" class="flex items-center"
+                               x-bind:class="$store.sidebar.full ? 'py-5 pl-6 justify-start':'p-2'">
+
+                                <img src="../public/img/box-svgrepo-com.svg"
+                                     x-bind:class="$store.sidebar.full ? 'h-8 w-8 mr-3' : 'h-10 w-10'">
+
+                                <span class="text-2xl tracking-wide"
+                                      x-bind:class="$store.sidebar.full ? '':'hidden'">Stock</span>
+                            </a>
+                        </li>
+                        <li class="text-gray-400 rounded-full "
+                            x-bind:class="$store.sidebar.full ? '':'flex justify-center items-center h-16'">
+                            <a href="#" class="flex items-center"
+                               x-bind:class="$store.sidebar.full ? 'py-5 pl-6 justify-start':'p-2'">
+
+                                <img src="../public/img/coin-1-svgrepo-com.svg"
+                                     x-bind:class="$store.sidebar.full ? 'h-8 w-8 mr-3' : 'h-10 w-10'">
+
+                                <span class="text-2xl tracking-wide"
+                                      x-bind:class="$store.sidebar.full ? '':'hidden'">Revenue</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--sidebar info -->
+            <div class="w-full h-1/5 mt-4 p-2">
+                <p class="text-neutral-400 text-center" x-bind:class="$store.sidebar.full ? '' : 'hidden'">
+                    CS - Restaurant Admin Dashboard © 2023 All Rights Reserved
+                    <br>
+                    Made with <span class="text-[#804e49]">&#10084;</span> by XGEN</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Main Wrapper-->
+    <div class="flex flex-col w-full max-h-full relative ">
+        <!--top bar-->
+        <div class="topBar sticky top-0">
+            <div class="w-full h-full flex justify-between items-center bg-gray-100 p-4">
+                <!--Collapse Menu Icon-->
+                <div class="space-y-2 cursor-pointer Hamb"
+                     x-bind:class="$store.sidebar.full ? 'text-red-700' : 'text-red-100'"
+                     @click="$store.sidebar.full = !$store.sidebar.full">
+                <span class="block  h-0.5 bg-gray-600"
+                      x-bind:class="$store.sidebar.full ? 'w-8' : 'w-5'"></span>
+                    <span class="block w-8 h-0.5 bg-gray-600"></span>
+                    <span class="block  h-0.5 bg-gray-600"
+                          x-bind:class="$store.sidebar.full ? 'w-5' : 'w-8'"></span>
+                </div>
+
+                <!--Top Bar Menu-->
+                <div class="flex justify-end items-center h-full w-60 md:w-96">
+                    <div class="w-full md:w-2/3 h-full flex justify-between items-center">
+                        <div class="flex h-full w-1/3">
+                            <div class=" w-1/2 h-full p-1">
+                                <div class="w-full h-full  rounded-full flex justify-center items-center
+                                        border-gray-600 border-2">
+                                    <span class="text-xl" >B</span>
+                                </div>
+
+                            </div>
+                            <div class="bg-fuchsia-50 w-1/2 h-full p-1">
+                                <div class="w-full h-full  rounded-full flex justify-center items-center p-1
+                                        border-gray-600 border-2 cursor-pointer">
+                                    <img src="../public/img/notification-status-svgrepo-com.svg" alt="notif">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="h-full w-2/3 p-1">
+                            <div class="w-full h-full rounded-lg bg-[#804e49] flex justify-start items-center px-2 text-xl">
+                                <h2 class="text-gray-200">
+                                    Hello
+                                    <span class="font-bold text-gray-200">Admin</span>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- page content -->
+        <div class="bg-gray-200 ContentContainer p-6 max-h-full overflow-auto">
+            <div class="w-full">
+                <!--Interaction Section-->
+                <div id="interactionSection" class="flex justify-between items-center p-4">
+                    <div class="tracking-wide">
+                        <h1 class="text-3xl">
+                            Orders
+                            <span class="text-2xl font-extrabold text-[#804e49]">All</span>
+                        </h1>
+                    </div>
+                    <div class="flex justify-between items-center w-[25%] h-full font-bold">
+                        <div class="h-10 w-10 rounded-lg flex justify-center items-center shadow-lg hover:text-white hover:bg-[#804e49] bg-white text-[#804e49]">
+                            <button class="w-full h-full">All</button>
+                        </div>
+                        <div class="h-10 w-10 rounded-lg flex justify-center items-center shadow-lg hover:text-white hover:bg-[#804e49] bg-white text-[#804e49]">
+                            <button class="w-full h-full">A</button>
+                        </div>
+                        <div class="h-10 w-10 rounded-lg flex justify-center items-center shadow-lg hover:text-white hover:bg-[#804e49] bg-white text-[#804e49]">
+                            <button class="w-full h-full">B</button>
+                        </div>
+                        <div class="h-10 w-10 rounded-lg flex justify-center items-center shadow-lg hover:text-white hover:bg-[#804e49] bg-white text-[#804e49]">
+                            <button class="w-full h-full">C</button>
+                        </div>
+                        <div class="h-10 w-10 rounded-lg flex justify-center items-center shadow-lg hover:text-white hover:bg-[#804e49] bg-white text-[#804e49]">
+                            <button class="w-full h-full">D</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-center items-center transition-all duration-150">
+                        <button type="button" class="text-white bg-[#804e49] hover:bg-[#603c37] focus:outline-none font-medium rounded-lg text-sm px-8 py-2.5 text-center">Archive</button>
+                    </div>
+                </div>
+
+                <!--Table Interaction Section-->
+                <div class="w-full h-[4rem] flex justify-between items-center p-4 ">
+                    <div>
+                        <h1 class="text-xl">Employees:
+                            <span class="text-[#804e49]">20</span>
+                        </h1>
+                    </div>
+                    <div class="w-2/3">
+                        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ">Search</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 " fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                            <input type="search" id="default-search" class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 focus:outline-none" placeholder="Search Name, CIN..." required>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--Table Orders-->
+                <div class="w-full md:h-[35rem] p-4 overflow-y-auto">
+                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-h-[29rem]">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-white">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Full Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Phone Number
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Address
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Product Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    QTY
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Total Price
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only">Edit</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="bg-white border-b  hover:bg-gray-50 ">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Khalid Ghoddane"
+                                </th>
+                                <td class="px-6 py-4">
+                                    06-77-44-68-43
+                                </td>
+                                <td class="px-6 py-4">
+                                    Rue Ibn Batouta 130
+                                </td>
+                                <td class="px-6 py-4">
+                                    Arabica
+                                </td>
+                                <td class="px-6 py-4">
+                                    3
+                                </td>
+                                <td class="px-6 py-4">
+                                    200 DH
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delivered</a>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b  hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Narjiss Echchaykh"
+                                </th>
+                                <td class="px-6 py-4">
+                                    06-18-05-18-65
+                                </td>
+                                <td class="px-6 py-4">
+                                    Rue Ibn Batouta 130
+                                </td>
+                                <td class="px-6 py-4">
+                                    Robusta
+                                </td>
+                                <td class="px-6 py-4">
+                                    1
+                                </td>
+                                <td class="px-6 py-4">
+                                    199 DH
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b  hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Khalid Ghoddane"
+                                </th>
+                                <td class="px-6 py-4">
+                                    06-77-44-68-43
+                                </td>
+                                <td class="px-6 py-4">
+                                    Rue Ibn Batouta 130
+                                </td>
+                                <td class="px-6 py-4">
+                                    Arabica
+                                </td>
+                                <td class="px-6 py-4">
+                                    3
+                                </td>
+                                <td class="px-6 py-4">
+                                    200 DH
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b  hover:bg-gray-50 ">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Khalid Ghoddane"
+                                </th>
+                                <td class="px-6 py-4">
+                                    06-77-44-68-43
+                                </td>
+                                <td class="px-6 py-4">
+                                    Rue Ibn Batouta 130
+                                </td>
+                                <td class="px-6 py-4">
+                                    Arabica
+                                </td>
+                                <td class="px-6 py-4">
+                                    3
+                                </td>
+                                <td class="px-6 py-4">
+                                    200 DH
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b  hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Narjiss Echchaykh"
+                                </th>
+                                <td class="px-6 py-4">
+                                    06-18-05-18-65
+                                </td>
+                                <td class="px-6 py-4">
+                                    Rue Ibn Batouta 130
+                                </td>
+                                <td class="px-6 py-4">
+                                    Robusta
+                                </td>
+                                <td class="px-6 py-4">
+                                    1
+                                </td>
+                                <td class="px-6 py-4">
+                                    199 DH
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b  hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Khalid Ghoddane"
+                                </th>
+                                <td class="px-6 py-4">
+                                    06-77-44-68-43
+                                </td>
+                                <td class="px-6 py-4">
+                                    Rue Ibn Batouta 130
+                                </td>
+                                <td class="px-6 py-4">
+                                    Arabica
+                                </td>
+                                <td class="px-6 py-4">
+                                    3
+                                </td>
+                                <td class="px-6 py-4">
+                                    200 DH
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b  hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Narjiss Echchaykh"
+                                </th>
+                                <td class="px-6 py-4">
+                                    06-18-05-18-65
+                                </td>
+                                <td class="px-6 py-4">
+                                    Rue Ibn Batouta 130
+                                </td>
+                                <td class="px-6 py-4">
+                                    Robusta
+                                </td>
+                                <td class="px-6 py-4">
+                                    1
+                                </td>
+                                <td class="px-6 py-4">
+                                    199 DH
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b  hover:bg-gray-50">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Khalid Ghoddane"
+                                </th>
+                                <td class="px-6 py-4">
+                                    06-77-44-68-43
+                                </td>
+                                <td class="px-6 py-4">
+                                    Rue Ibn Batouta 130
+                                </td>
+                                <td class="px-6 py-4">
+                                    Arabica
+                                </td>
+                                <td class="px-6 py-4">
+                                    3
+                                </td>
+                                <td class="px-6 py-4">
+                                    200 DH
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="w-full mt-4">
+                        <div class="flex items-center justify-end p-2">
+                            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 rounded-lg text-sm px-5 py-1 dark:bg-blue-600 focus:outline-none">Previous</button>
+                            <button class="ml-4 text-white bg-blue-700 hover:bg-blue-800 rounded-lg text-sm px-5 py-1 dark:bg-blue-600 focus:outline-none">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<script src="./js/script.js"></script>
+<script src="./js/Index.js"></script>
+</body>
+</html>
